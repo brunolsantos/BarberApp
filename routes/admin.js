@@ -7,14 +7,14 @@ router.get('/', function(req, res, next) {
     res.render('admin', {success: req.session.success, errors: req.session.errors});
   }else{
     req.session.errors = 'Log in first';
-    res.redirect('/login');
+    res.redirect('/index');
   }
 });
 
 
 router.post('/exit', function(req, res, next){
   req.session.success = false;  
-  res.redirect('/login');
+  res.redirect('/index');
 });
 
 module.exports = router;

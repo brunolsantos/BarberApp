@@ -35,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({secret: 'max', saveUninitialized: false, resave: false}));
 
 app.use('/', index);
+app.use('/index', index);
 app.use('/login', login);
 app.use('/admin', admin);
 app.use('/barbers', barber);
