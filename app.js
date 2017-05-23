@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
-
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var login = require('./routes/login');
@@ -16,6 +16,8 @@ var barber = require('./routes/barbers');
 
 
 var app = express();
+
+mongoose.connect('localhost:27017/barberapp');
 
 // view engine setup
 app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/'}));
@@ -54,5 +56,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

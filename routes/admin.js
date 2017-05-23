@@ -3,11 +3,18 @@ var router = express.Router();
 
 /* GET admins listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource (admin)');
+  if(req.session.success == true){
+    res.render('admin', {success: req.session.success, errors: req.session.errors});
+  }else{
+    req.session.errors = 'Log in first';
+    res.redirect('/login');
+  }
 });
 
-router.get('/detail', function(req, res, next) {
-  res.send('Detail (admin)');
+
+router.post('/exit', function(req, res, next){
+  req.session.success = false;  
+  res.redirect('/login');
 });
 
 module.exports = router;
