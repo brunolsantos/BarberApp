@@ -5,12 +5,7 @@ var router = express.Router();
 var Admin = require('../models/admin');
 
 router.get('/', function(req, res, next){
-  if(req.session.success == true){
-    res.redirect('/admin');
-  }else{
-    res.render('login', {title: 'Login Form Validation', success: req.session.success, errors: req.session.errors});
-    req.session.errors = null;
-  }
+    res.redirect('/index');
 });
 
 router.post('/submit', function(req, res, next){
