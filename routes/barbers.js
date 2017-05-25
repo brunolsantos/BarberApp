@@ -3,91 +3,31 @@ var mongo = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
 var assert = require('assert');
 var router = express.Router();
+var queue = require('../controller/queue');
 
 /* GET barbers listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource (barbers)');
-});
-
-router.get('/detail', function(req, res, next) {
-  res.send('Detail (barbers)');
+  queue.getQueue();
+  res.redirect("/admin");
 });
 
 router.get('/:id',function(req, res, next){
-  mongo.connect(url, function(err, db){
-    assert.equal(null, err);
-    var cursor = db.collection('barbers').findOne({"_id": objectId(id)},function(err, result){
-      assert.equal(null, err);
-      db.close();
-      res.json(result);
-    });
-  });
+  /* RETURN INFORMATIONS ABOUT BARBER */
 });
 
-router.get('/all',function(){
-  var resultArray = [];
-
-  mongo.connect(url, function(err, db){
-    assert.equal(null, err);
-    var cursor = db.collection('barbers').find();
-    cursor.forEach(function(doc, err) {
-      assert.equal(null, err);
-      resultArray.push(doc);
-    }, function(){
-      db.close();
-      res.json(resultArray);
-    });
-  });
+router.get('/:id/queue',function(req, res, next){
+  /* RETURN QUEUE OF BARBER */
 });
 
-router.post('/insert',function(req, res, next){
-  var item = {
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author
-  };
+router.post('/:id/insert',function(req, res, next){
+  v
 
-  mongo.connect(url, function(err, db){
-    assert.equal(null, err);
-    db.collection('barbers').insertOne(item, function(err, result){
-      assert.equal(null, err);
-      console.log('Barber Inserted');
-      db.close();
-    });
-  });
-
-  res.redirect('/');
+  res.redirect('admin');
 });
 
-router.post('/update',function(req, res, next){
-  var item = {
-    title: req.body.title,
-    content: req.body.content,
-    author: req.body.author
-  };
-  var id = req.body.id;
-
-  mongo.connect(url, function(err, db){
-    assert.equal(null, err);
-    db.collection('barbers').updateOne({"_id": objectId(id)}, {$set: item}, function(err, result){
-      assert.equal(null, err);
-      console.log('Barber Updated');
-      db.close();
-    });
-  });
-});
-
-router.post('/delete',function(req, res, next){
-  var id = req.body.id;
-
-  mongo.connect(url, function(err, db){
-    assert.equal(null, err);
-    db.collection('barbers').deleteOne({"_id": objectId(id)}, function(err, result){
-      assert.equal(null, err);
-      console.log('Barber deleted');
-      db.close();
-    });
-  });
+router.post('/remove',function(req, res, next){
+  /* REMOVE NAME FROM QUEUE
+    NEED: BARBER ID, NAME POSITION */
 });
 
 module.exports = router;

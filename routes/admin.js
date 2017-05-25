@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 var Barber = require('../models/barber');
 var Admin = require('../models/admin');
+var queue = require('../controller/queue');
 
 /* GET admins listing. */
 router.get('/', function(req, res, next) {
   if(req.session.success == true){
     Barber.find(function(err, docs){
       res.render('admin', {success: req.session.success, errors: req.session.errors, barbers: docs });
+      queue.start();
     });
     
   }else{

@@ -13,6 +13,7 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var admin = require('./routes/admin');
 var barber = require('./routes/barbers');
+var queue = require('./controller/queue');
 
 
 var app = express();
