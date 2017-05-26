@@ -6,10 +6,12 @@ var queue = require('../controller/queue');
 
 /* GET admins listing. */
 router.get('/', function(req, res, next) {
+  queue.start();
+  var allQueues = queue.getAllQueues(); 
+  console.log("allqueues: "+allQueues[0]);
   if(req.session.success == true){
     Barber.find(function(err, docs){
-      res.render('admin', {success: req.session.success, errors: req.session.errors, barbers: docs });
-      queue.start();
+      res.render('admin', {success: req.session.success, errors: req.session.errors, barbers: docs, allQueues: allQueues });
     });
     
   }else{

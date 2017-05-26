@@ -4,30 +4,48 @@ var objectId = require('mongodb').ObjectID;
 var assert = require('assert');
 var router = express.Router();
 var queue = require('../controller/queue');
+var Barber = require('../models/barber');
 
 /* GET barbers listing. */
 router.get('/', function(req, res, next) {
-  queue.getQueue();
   res.redirect("/admin");
 });
 
+/* RETURN INFORMATIONS ABOUT BARBER */
 router.get('/:id',function(req, res, next){
-  /* RETURN INFORMATIONS ABOUT BARBER */
+  var id = req.params.id;
+  var myJsonString;
+
+  Barber.find(function(err, docs){
+    for(var i = 0; i < docs.length; i++){
+      if(docs[i].id == id){
+        myJsonString = JSON.stringify(docs[i]);
+        break;
+      }
+    }
+    res.send(myJsonString);
+  });
 });
 
+/* RETURN BARBER'S QUEUE */
 router.get('/:id/queue',function(req, res, next){
-  /* RETURN QUEUE OF BARBER */
+  var id = req.params.id;
+
+  console.log("id:"+id );
+  var myJsonString = JSON.stringify(queue.getBarberQueue(id));
+  res.send(myJsonString);
 });
 
 router.post('/:id/insert',function(req, res, next){
-  v
-
-  res.redirect('admin');
+  var name = req.body.name;
+  var id = req.params.id;
+  queue.add(id, name);
+  res.redirect('/barbers/'+id+"/queue");
 });
 
-router.post('/remove',function(req, res, next){
-  /* REMOVE NAME FROM QUEUE
-    NEED: BARBER ID, NAME POSITION */
+router.post('/:id/remove',function(req, res, next){
+  var pos = req.body.pos;
+  var id = req.params.id;
 });
 
 module.exports = router;

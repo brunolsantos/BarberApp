@@ -1,8 +1,7 @@
 var Barber = require('../models/barber');
-var ObjectId = require('mongodb').ObjectID;
 /* https://stackoverflow.com/questions/17120117/sharing-modifying-a-variable-between-multiple-files-node-js */
+var barbersQueue = new Array();
 var Queue = module.exports = {
-    barbersQueue: [],
     add: function(id, name) {
         for(var i = 0; i < barbersQueue.length; i++){
             if(barbersQueue[i].id == id){
@@ -18,13 +17,9 @@ var Queue = module.exports = {
         }
     },
     start: function(){
-        barbersQueue = [];
         Barber.find(function(err, docs){
-            for(var i = 0; i < docs.length; i++){                
-                console.log('adding queue to barber');
-                var namee = docs.name;
-                console.log('barberID MONGO: '+namee);
-                barbersQueue.push({id: docs.id, queue: []});
+            for(var i = 0; i < docs.length; i++){
+                barbersQueue.push({id: docs[i].id, queue: []});
             }
         });
     },
@@ -32,7 +27,7 @@ var Queue = module.exports = {
         barbersQueue.length = 0;
         start();
     },
-    getQueue: function(barberID){
+    getBarberQueue: function(barberID){
         var queue;
         for(var i = 0; i < barbersQueue.length; i++){
             if(barbersQueue[i].id == barberID){
@@ -40,7 +35,10 @@ var Queue = module.exports = {
                 break;
             }
         }
-        console.log('queue: '+queue );
+        return queue;
+    },
+    getAllQueues: function(){
+        var queue = barbersQueue;
         return queue;
     }
 
