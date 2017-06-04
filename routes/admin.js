@@ -35,8 +35,8 @@ router.post('/add-barber', function(req, res, next){
   ];
   barbers[0].save(function(err, result){
     console.log('results: '+result);
+    res.redirect('/');
   });
-  res.redirect('/');
 });
 
 router.post('/add-admin', function(req, res, next){

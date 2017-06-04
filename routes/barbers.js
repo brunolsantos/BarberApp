@@ -43,9 +43,32 @@ router.post('/:id/insert',function(req, res, next){
   res.redirect('/barbers/'+id+"/queue");
 });
 
-router.post('/:id/remove',function(req, res, next){
-  var pos = req.body.pos;
+router.get('/remove-barber/:id',function(req, res, next){
   var id = req.params.id;
+  Barber.findByIdAndRemove(id, function(err, doc){
+     if(err) { throw err; }
+     else{res.redirect('/')}
+  });
+});
+
+router.post('/edit-barber',function(req, res, next){
+var item = {
+  'name': req.body.name,
+  'photo': req.body.photo
+}
+  var id = req.body.id;
+  var name = req.body.name;
+  var photo = req.body.photo;
+
+  Barber.findById(id, function(err, doc){
+    if(err) { throw err; }
+    doc.name = name;
+    doc.photo = photo;
+    doc.save(function (err, updatedTank) {
+    //if (err) return handleError(err);
+      res.redirect('/');
+    });
+  });
 });
 
 module.exports = router;

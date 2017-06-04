@@ -1,0 +1,24 @@
+.post-container {
+    border: 5px solid #333;
+    overflow: auto;
+    margin:30px;
+    width:400px;
+    height:400px;
+    background-color:tan;
+    float:left;
+}
+.post-content {
+    text-align:center;
+    margin-top:20px;
+}
+.post-thumb img {
+    display: block;
+    margin : auto;
+}
+.post-title {
+    font-weight: bold;
+    font-size: 200%;
+    padding: 9px;
+    background: #ccc;
+    text-align:center;
+}
