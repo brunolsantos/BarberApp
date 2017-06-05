@@ -26,6 +26,14 @@ router.get('/exit', function(req, res, next){
   res.redirect('/index');
 });
 
+router.get('/all', function(req, res, next){
+  Barber.find(function(err, docs){
+        var myJsonString = JSON.stringify(docs);
+        console.log(myJsonString);
+        res.send(myJsonString);
+  });
+});
+
 router.post('/add-barber', function(req, res, next){
   var barbers = [
     new Barber({

@@ -32,10 +32,10 @@ router.post('/submit', function(req, res, next){
 
 function checkAdmin(email, password, res, req){
   Admin.find(function(err, docs){
-    console.log('docs: '+docs);
+    //console.log('docs: '+docs);
     for(var i = 0; i < docs.length; i++){
       if((email == docs[i].email) && (password == docs[i].password)){
-        console.log('email and password = true');
+        //console.log('email and password = true');
         req.session.success = true;
         res.redirect('/admin');
         break;

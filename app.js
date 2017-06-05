@@ -14,7 +14,7 @@ var login = require('./routes/login');
 var admin = require('./routes/admin');
 var barber = require('./routes/barbers');
 var queue = require('./controller/queue');
-
+//https://www.youtube.com/watch?v=xiKUUxzPbdc
 
 var app = express();
 

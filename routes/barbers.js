@@ -43,6 +43,14 @@ router.post('/:id/insert',function(req, res, next){
   res.redirect('/barbers/'+id+"/queue");
 });
 
+router.get('/all', function(req, res, next){
+  Barber.find(function(err, docs){
+        var myJsonString = JSON.stringify(docs);
+        console.log(myJsonString);
+        res.send(myJsonString);
+  });
+});
+
 router.get('/remove-barber/:id',function(req, res, next){
   var id = req.params.id;
   Barber.findByIdAndRemove(id, function(err, doc){
