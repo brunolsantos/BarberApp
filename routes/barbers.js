@@ -55,7 +55,10 @@ router.get('/remove-barber/:id',function(req, res, next){
   var id = req.params.id;
   Barber.findByIdAndRemove(id, function(err, doc){
      if(err) { throw err; }
-     else{res.redirect('/')}
+     else{
+        queue.removeBarberQueue(id);
+        res.redirect('/');
+      }
   });
 });
 

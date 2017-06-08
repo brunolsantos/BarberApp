@@ -37,6 +37,16 @@ var Queue = module.exports = {
         }
         return queue;
     },
+    removeBarberQueue: function(barberID){
+        var queue;
+        for(var i = 0; i < barbersQueue.length; i++){
+            if(barbersQueue[i].id == barberID){
+                barbersQueue.splice(i,1);
+                break;
+            }
+        }
+        return queue;
+    },
     getAllQueues: function(){
         var queue = barbersQueue;
         return queue;
