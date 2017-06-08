@@ -34,6 +34,12 @@ router.get('/all', function(req, res, next){
   });
 });
 
+router.get('/clear-queues',function(req, res, next){
+  var id = req.params.id;
+  queue.clearArray();
+  res.redirect("/");
+});
+
 router.post('/add-barber', function(req, res, next){
   var barbers = [
     new Barber({

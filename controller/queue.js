@@ -25,7 +25,7 @@ var Queue = module.exports = {
     },
     clearArray: function(){
         barbersQueue.length = 0;
-        start();
+        this.start();
     },
     getBarberQueue: function(barberID){
         var queue;
